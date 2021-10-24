@@ -92,7 +92,7 @@
                                     </Border.BorderBrush>
 
                                     <Border.Effect>
-                                        <DropShadowEffect BlurRadius="100" Color="#FFE3E3E3" ShadowDepth="0" />
+                                        <DropShadowEffect BlurRadius="100" Color="#FFE3E3E3" ShadowDepth="3" />
                                     </Border.Effect>
 
                                     <ContentPresenter x:Name="PART_SelectedContentHost"
@@ -464,6 +464,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <!-- SimpleStyles: TextBox -->
+           
         </ResourceDictionary>
     </Page.Resources>
 
@@ -482,13 +484,18 @@
 
                     <TextBlock x:Name="txtTimeZoneTitle" HorizontalAlignment="Center" Text="HydrationKit GUI" VerticalAlignment="Top" FontSize="24" Margin="300,34,10,0" Width="416" TextAlignment="Left" FontFamily="Segoe UI" Foreground="Black" TextWrapping="Wrap"/>
 
-                    <TextBlock x:Name="lbxTimeZoneList" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Background="#eef2f4" Foreground="Black" FontSize="18" Width="415" Height="394" Margin="440,190,28,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="Custom HydrationKit
+                    <TextBlock x:Name="Introduction" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top"  Foreground="Black" FontSize="18" Width="415" Height="200" Margin="440,190,28,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      <TextBlock.Text>
+                      Custom HydrationKit
 	
 	This script is provided 'AS IS' with no warranties, confers no rights and 
 	is not supported by the author. 
 
     Author - Jérôme Bezet-Torres
-    Twitter: @JM2K69"/>
+    Twitter: @JM2K69"
+                      </TextBlock.Text>
+                      
+                    </TextBlock>
                     <Button x:Name="btnTZSelect" Content="Next" Height="45" Width="140" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Padding="10" Margin="0,0,28,29"/>
                 </Grid>
             </TabItem>
