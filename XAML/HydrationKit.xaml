@@ -14,7 +14,7 @@
         WindowtartupLocation="CenterScreen"
         Windowtyle="None"-->
     <Page.Background>
-        <RadialGradientBrush GradientOrigin="0.2,0.2"
+        <!--RadialGradientBrush GradientOrigin="0.2,0.2"
                              Center="0.9,0.1"
                              RadiusX="0.7"
                              RadiusY="0.8">
@@ -41,8 +41,8 @@
                           Offset="0.506" />
             <GradientStop Color="AliceBlue"
                           Offset="1" />
-        </RadialGradientBrush>
-        <!--ImageBrush ImageSource="https://github.com/PowerShellCrack/AutopilotTimeZoneSelectorUI/blob/master/.images/win11_oobe_wallpaper.png?raw=true"></ImageBrush-->
+        </RadialGradientBrush-->
+        <ImageBrush ImageSource="https://github.com/JM2K69/HydrationKit/blob/main/XAML/img/Background.png?raw=true"></ImageBrush>
     </Page.Background>
     <Page.Resources>
        <ResourceDictionary>
