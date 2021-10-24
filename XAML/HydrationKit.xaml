@@ -503,23 +503,23 @@
 
             <TabItem Style="{DynamicResource OOBETabStyle}" Header="DC01" Width="167" Height="60" BorderThickness="0" Margin="357,658,-357,-658">
                 <Grid Margin="10,6,7,9">
-                    <Image x:Name="logo" HorizontalAlignment="Left" Width="450" VerticalAlignment="Center"  Margin="170,217,0,224" Source="C:\Users\JM2K69\Pictures\srv.png"/>
-                    <StackPanel Margin="440 90 28 0 ">
+                    <Image x:Name="logo" HorizontalAlignment="Left" Width="450" VerticalAlignment="Center"  Margin="70,217,0,224" Source="C:\Users\JM2K69\Pictures\srv.png"/>
+                    <StackPanel Margin="250 45 28 0 ">
                                          
                 			<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="0,5,0,0">
                 				<Label Content="Computer name" Margin="10,0,0,0" Width="145"></Label>
-                				<TextBox Name="Computer_Name" Margin="10,0,0,0" Width="185" Height="19"></TextBox>	
+                				<TextBox Name="Computer_Name" Margin="15,0,0,0" Width="185" Height="20"></TextBox>	
                 			</StackPanel>
                 			
                 			<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="0,5,0,0">
                 				<Label Content="Local Admin Password " Margin="10,0,0,0" Width="145"></Label>
-                				<PasswordBox  Name="Local_Admin_PWD" Margin="10 0 0 0 " Width="185" />
+                				<PasswordBox  Name="Local_Admin_PWD" Margin="15 0 0 0 " Width="185" Height="20" />
                 			</StackPanel>							
                 										
                 			<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="0,5,0,0">
                 				
                 				<Label Content="WKG or Domain" Margin="10,0,0,0" Width="145"></Label>
-                				<ComboBox SelectedIndex="0" Name="Choose_Domain_WKG" Text="Choose" Height="25" Width="185" Margin="10,0,0,0" >
+                				<ComboBox SelectedIndex="0" Name="Choose_Domain_WKG" Text="Choose" Height="25" Width="185" Margin="15,0,0,0" >
                 					<ComboBoxItem Name="Mode_Workgroup" Content="WorkGroup"></ComboBoxItem>
                 					<ComboBoxItem Name="Mode_Domain" Content="Domain"></ComboBoxItem>
                 				</ComboBox>   
@@ -530,47 +530,49 @@
                 				<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="0,5,0,0">
                 					
                 					<Label Content="User name" Margin="10,0,0,0" Width="145"></Label>
-                					<TextBox Name="UserName" Margin="10,0,0,0" Width="185" Height="19"></TextBox>
+                					<TextBox Name="UserName" Margin="15,0,0,0" Width="185" Height="20"></TextBox>
                 				</StackPanel>								
                 							
                 				<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="0,5,0,0">
                 				
                 					<Label Content="Domain Admin password" Margin="10,0,0,0" Width="145"></Label>
-                          <PasswordBox  Name="ADDS_Admin_PWD" Margin="10 0 0 0 " Width="185" />
+                          <PasswordBox  Name="ADDS_Admin_PWD" Margin="15 0 0 0 " Width="185" Height="20" />
                 				</StackPanel>
                 			</StackPanel>
                 			
                             									
               				<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="5,5,0,0">
               					
-              					<Label Content="Domain DNS Name " Margin="4,0,0,0" Width="165"></Label>
-              					<TextBox Name="Domain_DNS_Name" Margin="0,0,0,0" Width="185" Height="19"></TextBox>																				
+              					<Label Content="Domain DNS Name " Margin="4,0,0,0" Width="160"></Label>
+              					<TextBox Name="Domain_DNS_Name" Margin="0,0,0,0" Width="185" Height="20"></TextBox>																				
               				</StackPanel>
               							
               				<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="5,5,0,0">
               					
-              					<Label Content="Domain NetBios Name" Margin="4,0,0,0" Width="165"></Label>
-              					<TextBox Name="Domain_NetBios_Name" Margin="0,0,0,0" Width="185" Height="19" CharacterCasing="Upper" MaxLength="15" ></TextBox>
+              					<Label Content="Domain NetBios Name" Margin="4,0,0,0" Width="160"></Label>
+              					<TextBox Name="Domain_NetBios_Name" Margin="0,0,0,0" Width="185" Height="20" CharacterCasing="Upper" MaxLength="15" ></TextBox>
               					
               				</StackPanel>								
               							
               				<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="5,5,0,0">
               					
-              					<Label Content="Domain Recovery Password" Margin="4,0,0,0" Width="165"></Label>
+              					<Label Content="Domain Recovery Password" Margin="4,0,0,0" Width="160"></Label>
               				<PasswordBox  Name="ADDS_DRM_PWD" Margin="0 0 0 0 " Width="185"/>
               				</StackPanel>	
               				
   		            		<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="5,5,0,0">
   					
-  					<Label Content="Site Name" Margin="4,0,0,0" Width="165"></Label>
-  					<TextBox Name="Site_Name" Margin="0,0,0,0" Width="185" Height="19"></TextBox>
+  					<Label Content="Site Name" Margin="4,0,0,0" Width="160"></Label>
+  					<TextBox Name="Site_Name" Margin="0,0,0,0" Width="185" Height="20"></TextBox>
   				</StackPanel>
   				
   			
                   </StackPanel>
-                    
-                    <Button x:Name="btnTZSelect2" Content="Change" Height="45" Width="140" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Padding="10" Margin="0,0,28,29"/>
-
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="Back1" Content="Back" Height="45" Width="140" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Padding="10" Margin="0,0,28,29"/>
+                        <Button x:Name="Next" Content="Next" Height="45" Width="140" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Padding="10" Margin="0,0,28,29"/>
+                        <Button x:Name="ChangeDC01" Content="Change" Height="45" Width="140" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="18" Padding="10" Margin="0,0,28,29"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 
