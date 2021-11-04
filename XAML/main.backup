@@ -1,0 +1,1137 @@
+
+<Controls:MetroWindow
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+   xmlns:controlzEx="urn:controlzex"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:local="clr-namespace:SelectTimeZoneWPF"
+   xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   Width="1024"
+   Height="768"
+   Title="HydrationKit GUI"
+   WindowStartupLocation="CenterScreen"
+   AllowsTransparency = "true"
+   UseNoneWindowStyle="True"
+   WindowStyle="None"
+   ResizeMode="NoResize" 
+   ShowInTaskbar="False">
+  
+  <Window.Clip>
+        <RectangleGeometry Rect="0,0,1024,768" RadiusX="15" RadiusY="15"/>
+    </Window.Clip>
+    <Window.Background>
+      <ImageBrush ImageSource="https://github.com/JM2K69/HydrationKit/blob/main/XAML/img/Background.png?raw=true">
+      </ImageBrush>
+   </Window.Background>
+   <Window.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+         <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="Foreground" Value="#1f1f1f"/>
+            
+         </Style>
+   <!-- TabControl Style-->
+         <Style TargetType="TabControl">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type TabControl}">
+                     <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid.RowDefinitions>
+                           <RowDefinition Height="Auto"/>
+                           <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TabPanel
+                           x:Name="HeaderPanel"
+                           Grid.Row="0"
+                           Margin="0,0,4,-3"
+                           Panel.ZIndex="1"
+                           Background="Transparent"
+                           IsItemsHost="True"
+                           KeyboardNavigation.TabIndex="1"/>
+                        <Border
+                           x:Name="Border"
+                           Grid.Row="1"
+                           BorderThickness="0,3,0,0"
+                           CornerRadius="15"
+                           KeyboardNavigation.DirectionalNavigation="Contained"
+                           KeyboardNavigation.TabIndex="2"
+                           KeyboardNavigation.TabNavigation="Local">
+                           <Border.Background>
+                              <SolidColorBrush Color="White" Opacity="0.7"/>
+                           </Border.Background>
+                           <Border.BorderBrush>
+                              <SolidColorBrush Color="#eef2f4"/>
+                           </Border.BorderBrush>
+                           <Border.Effect>
+                              <DropShadowEffect BlurRadius="100" Color="#FFE3E3E3" ShadowDepth="3"/>
+                           </Border.Effect>
+                           <ContentPresenter x:Name="PART_SelectedContentHost" Margin="0,0,0,0" ContentSource="SelectedContent"/>
+                        </Border>
+                     </Grid>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+   <!-- TabItem Style -->
+         <Style x:Key="OOBETabStyle" TargetType="{x:Type TabItem}">
+   <!--<Setter Property="Foreground" Value="#FFE6E6E6"/>-->
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type TabItem}">
+                     <Grid>
+                        <Border Name="Border" Margin="0" CornerRadius="0">
+                           <ContentPresenter
+                              x:Name="ContentSite"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              ContentSource="Header"
+                              RecognizesAccessKey="True"/>
+                        </Border>
+                     </Grid>
+                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter Property="Foreground" Value="#313131"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,3"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#4c4c4c"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                           <Setter Property="Foreground" Value="#313131"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,3"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#4c4c4c"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                           <Setter Property="Panel.ZIndex" Value="100"/>
+                           <Setter Property="Foreground" Value="#FF003E92"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,3"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#FF003E92"/>
+                        </Trigger>
+                     </ControlTemplate.Triggers>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="DataGridContentCellCentering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type DataGridCell}">
+                     <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                     </Grid>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+   <!-- Sub TabItem Style -->
+   <!-- TabControl Style-->
+         <Style x:Key="ModernStyleTabControl" TargetType="TabControl">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type TabControl}">
+                     <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid.RowDefinitions>
+                           <RowDefinition Height="40"/>
+                           <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TabPanel
+                           x:Name="HeaderPanel"
+                           Grid.Row="0"
+                           Panel.ZIndex="1"
+                           Background="#eef2f4"
+                           IsItemsHost="True"
+                           KeyboardNavigation.TabIndex="1"/>
+                        <Border
+                           x:Name="Border"
+                           Grid.Row="0"
+                           Background="#eef2f4"
+                           BorderBrush="Black"
+                           BorderThickness="1">
+                           <ContentPresenter x:Name="PART_SelectedContentHost" Margin="0,0,0,0" ContentSource="SelectedContent"/>
+                        </Border>
+                        <Border Grid.Row="1" BorderBrush="#eef2f4" BorderThickness="1,0,1,1">
+                           <ContentPresenter Margin="4"/>
+                        </Border>
+                     </Grid>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="ModernStyleTabItem" TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type TabItem}">
+                     <Grid>
+                        <Border Name="Border" Margin="10,10,10,10" CornerRadius="5">
+                           <ContentPresenter
+                              x:Name="ContentSite"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              ContentSource="Header"
+                              RecognizesAccessKey="True"/>
+                        </Border>
+                     </Grid>
+                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter Property="Foreground" Value="#FF9C9C9C"/>
+                           <Setter Property="FontSize" Value="16"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="1,0,1,1"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#eef2f4"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                           <Setter Property="Foreground" Value="#FF666666"/>
+                           <Setter Property="FontSize" Value="16"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="1,0,1,1"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#eef2f4"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                           <Setter Property="Panel.ZIndex" Value="100"/>
+                           <Setter Property="Foreground" Value="white"/>
+                           <Setter Property="FontSize" Value="16"/>
+                           <Setter TargetName="Border" Property="BorderThickness" Value="1,0,1,1"/>
+                           <Setter TargetName="Border" Property="BorderBrush" Value="#eef2f4"/>
+                        </Trigger>
+                     </ControlTemplate.Triggers>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0067c0"/>
+            <Setter Property="Foreground" Value="#FFE8EDF9"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="Button">
+                     <Border
+                        Name="border"
+                        Background="#0078d7"
+                        BorderBrush="#336891"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="4,2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.TextAlignment="Center"/>
+                     </Border>
+                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                           <Setter TargetName="border" Property="BorderBrush" Value="#FFE8EDF9"/>
+                           <Setter Property="Background" Value="#FFE8EDF9"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                           <Setter TargetName="border" Property="BorderBrush" Value="#003e92"/>
+                           <Setter Property="Background" Value="#003e92"/>
+                           <Setter Property="Effect">
+                              <Setter.Value>
+                                 <DropShadowEffect
+                                    BlurRadius="10"
+                                    Color="#003e92"
+                                    Opacity="1"
+                                    ShadowDepth="0"/>
+                              </Setter.Value>
+                           </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                           <Setter TargetName="border" Property="BorderBrush" Value="#dddfe1"/>
+                           <Setter Property="Background" Value="#dddfe1"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="False">
+                           <Setter TargetName="border" Property="BorderBrush" Value="#dddfe1"/>
+                           <Setter Property="Background" Value="#dddfe1"/>
+                        </Trigger>
+                     </ControlTemplate.Triggers>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="{x:Type ListBox}" TargetType="ListBox">
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="ListBox">
+                     <Border Name="Border" BorderThickness="1">
+                        <ScrollViewer Margin="0" Focusable="false">
+                           <StackPanel Margin="2" IsItemsHost="True"/>
+                        </ScrollViewer>
+                     </Border>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="ListBoxItem">
+                     <Border
+                        Name="ItemBorder"
+                        Margin="1"
+                        Background="#eef2f4"
+                        CornerRadius="8"
+                        Padding="8">
+                        <ContentPresenter/>
+                     </Border>
+                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                           <Setter TargetName="ItemBorder" Property="Background" Value="#003e92"/>
+                           <Setter Property="Foreground" Value="#eef2f4"/>
+                        </Trigger>
+                        <MultiTrigger>
+                           <MultiTrigger.Conditions>
+                              <Condition Property="IsMouseOver" Value="True"/>
+                              <Condition Property="IsSelected" Value="False"/>
+                           </MultiTrigger.Conditions>
+                           <Setter TargetName="ItemBorder" Property="Background" Value="#dddfe1"/>
+                        </MultiTrigger>
+                     </ControlTemplate.Triggers>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="CheckBoxModernStyle1" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="{x:Type CheckBox}">
+                     <ControlTemplate.Resources>
+                        <Storyboard x:Key="OnChecking">
+                           <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                              <SplineDoubleKeyFrame KeyTime="00:00:00.300" Value="32"/>
+                           </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="OnUnchecking">
+                           <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                              <SplineDoubleKeyFrame KeyTime="00:00:00.300" Value="0"/>
+                           </DoubleAnimationUsingKeyFrames>
+                           <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                              <SplineThicknessKeyFrame KeyTime="00:00:00.300" Value="1,1,1,1"/>
+                           </ThicknessAnimationUsingKeyFrames>
+                        </Storyboard>
+                     </ControlTemplate.Resources>
+                     <DockPanel x:Name="dockPanel">
+                        <ContentPresenter
+                           VerticalAlignment="Center"
+                           Content="{TemplateBinding Content}"
+                           ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                           ContentTemplate="{TemplateBinding ContentTemplate}"
+                           RecognizesAccessKey="True"
+                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <Grid Width="66" Margin="5,5,0,5" Background="#eef2f4">
+                           <TextBlock
+                              HorizontalAlignment="Right"
+                              Margin="0,0,3,0"
+                              VerticalAlignment="Center"
+                              FontSize="18"
+                              FontWeight="Bold"
+                              Foreground="White"
+                              Text="Yes"
+                              TextWrapping="Wrap"/>
+                           <TextBlock
+                              HorizontalAlignment="Left"
+                              Margin="2,0,0,0"
+                              VerticalAlignment="Center"
+                              FontSize="18"
+                              FontWeight="Bold"
+                              Foreground="White"
+                              Text="No"
+                              TextWrapping="Wrap"/>
+                           <Border
+                              x:Name="slider"
+                              Width="32"
+                              Height="40"
+                              HorizontalAlignment="Left"
+                              Margin="1,1,1,1"
+                              BorderThickness="1,1,1,1"
+                              CornerRadius="0,0,0,0"
+                              RenderTransformOrigin="0.5,0.5">
+                              <Border.RenderTransform>
+                                 <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    <SkewTransform AngleX="0" AngleY="0"/>
+                                    <RotateTransform Angle="0"/>
+                                    <TranslateTransform X="0" Y="0"/>
+                                 </TransformGroup>
+                              </Border.RenderTransform>
+                              <Border.BorderBrush>
+                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="0" Color="#FFFFFFFF"/>
+                                    <GradientStop Offset="1" Color="#FF4490FF"/>
+                                 </LinearGradientBrush>
+                              </Border.BorderBrush>
+                              <Border.Background>
+                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="1" Color="#FF8AB4FF"/>
+                                    <GradientStop Offset="0" Color="#FFD1E2FF"/>
+                                 </LinearGradientBrush>
+                              </Border.Background>
+                           </Border>
+                        </Grid>
+                     </DockPanel>
+                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                           <Trigger.ExitActions>
+                              <BeginStoryboard x:Name="OnUnchecking_BeginStoryboard" Storyboard="{StaticResource OnUnchecking}"/>
+                           </Trigger.ExitActions>
+                           <Trigger.EnterActions>
+                              <BeginStoryboard x:Name="OnChecking_BeginStoryboard" Storyboard="{StaticResource OnChecking}"/>
+                           </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                           <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                     </ControlTemplate.Triggers>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="ModernStyleGroupBox" TargetType="{x:Type GroupBox}">
+            <Setter Property="Template">
+               <Setter.Value>
+                  <ControlTemplate TargetType="GroupBox">
+                     <Grid>
+                        <Grid.RowDefinitions>
+                           <RowDefinition Height="Auto"/>
+                           <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border
+                           Grid.Row="0"
+                           Background="#FF1D3245"
+                           BorderBrush="Black"
+                           BorderThickness="1">
+                           <Label Foreground="White">
+                              <ContentPresenter Margin="4" ContentSource="Header" RecognizesAccessKey="True"/>
+                           </Label>
+                        </Border>
+                        <Border Grid.Row="1" BorderBrush="#FF1D3245" BorderThickness="1,0,1,1">
+                           <ContentPresenter Margin="4"/>
+                        </Border>
+                     </Grid>
+                  </ControlTemplate>
+               </Setter.Value>
+            </Setter>
+         </Style>
+         <Style x:Key="ModernToggleButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="MinHeight" Value="26"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Background" Value="#336891"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+               <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="BorderBrush" Value="#FF1D3245"/>
+                  <Setter Property="Foreground" Value="#FF1D3245"/>
+               </Trigger>
+               <Trigger Property="IsFocused" Value="True">
+                  <Setter Property="BorderBrush" Value="#FF1D3245"/>
+                  <Setter Property="Foreground" Value="#FF1D3245"/>
+               </Trigger>
+               <Trigger Property="IsChecked" Value="True">
+                  <Setter Property="BorderBrush" Value="#FF1D3245"/>
+                  <Setter Property="Foreground" Value="#FF1D3245"/>
+                  <Setter Property="FontWeight" Value="Bold"/>
+                  <Setter Property="Effect">
+                     <Setter.Value>
+                        <DropShadowEffect
+                           BlurRadius="10"
+                           Color="#FF1D3245"
+                           Opacity="1"
+                           ShadowDepth="0"/>
+                     </Setter.Value>
+                  </Setter>
+               </Trigger>
+            </Style.Triggers>
+         </Style>
+   <!-- SimpleStyles: TextBox -->
+      </ResourceDictionary>
+   </Window.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Grid.RowDefinitions>
+         <RowDefinition/>
+         <RowDefinition Height="0*"/>
+      </Grid.RowDefinitions>
+      <Grid.ContextMenu>
+         <ContextMenu>
+            <MenuItem Name="Folder" Header="Choose Folder">
+               <MenuItem.Icon>
+                  <Ellipse Width="16" Height="16" Fill="LightBlue"/>
+               </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Name="Exit" Header="Exit">
+               <MenuItem.Icon>
+                  <Ellipse Width="16" Height="16" Fill="Red"/>
+               </MenuItem.Icon>
+            </MenuItem>
+         </ContextMenu>
+      </Grid.ContextMenu>
+      <TabControl
+         Name="Tabcontrol"
+         Width="900"
+         Height="650"
+         HorizontalAlignment="Center"
+         Margin="0,0,0,40"
+         VerticalAlignment="Center">
+         <TabItem
+            Name="Settings"
+            Width="140"
+            Height="60"
+            Margin="357,658,-357,-658"
+            BorderThickness="0"
+            Header="Settings"
+            Style="{DynamicResource OOBETabStyle}">
+            <Grid Margin="10,6,7,9">
+               <Image
+                  x:Name="tz_world"
+                  Width="450"
+                  Height="450"
+                  HorizontalAlignment="Left"
+                  Margin="0,217,0,224"
+                  VerticalAlignment="Center"
+                  Source="c:\Users\JM2K69\Pictures\Windows-11_1920_3Up_Enterprise.png"/>
+               <TextBlock
+                  x:Name="tab3Version"
+                  Width="883"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  FontFamily="Segoe UI Light"
+                  FontSize="12"
+                  Foreground="gray"
+                  Text="v1.0"
+                  TextAlignment="right"/>
+               <TextBlock
+                  x:Name="txtTimeZoneTitle"
+                  Width="416"
+                  HorizontalAlignment="Center"
+                  Margin="300,34,10,0"
+                  VerticalAlignment="Top"
+                  FontFamily="Segoe UI"
+                  FontSize="24"
+                  Foreground="Black"
+                  Text="HydrationKit GUI"
+                  TextAlignment="Left"
+                  TextWrapping="Wrap"/>
+               <StackPanel Orientation="Vertical">
+                  <TextBlock
+                     x:Name="Introduction"
+                     Width="400"
+                     Height="130"
+                     HorizontalAlignment="Center"
+                     Margin="440,190,28,0"
+                     VerticalAlignment="Top"
+                     FontSize="18"
+                     Foreground="Black"
+                     TextWrapping="Wrap">
+                     <TextBlock.Text>
+                      Custom HydrationKit                                         
+                      	                                    
+	This script is provided &quot;AS IS&quot; with no warranties, confers no rights and 
+	is not supported by the author. 
+
+                  
+                     
+                     </TextBlock.Text>
+                  </TextBlock>
+                  <TextBlock
+                     Width="400"
+                     Height="130"
+                     HorizontalAlignment="Center"
+                     Margin="440,10,28,0"
+                     VerticalAlignment="Top"
+                     FontSize="18"
+                     Foreground="Black"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     TextWrapping="Wrap">
+                     <TextBlock.Text>
+                      
+    Author - Jérôme Bezet-Torres
+    Twitter: @JM2K69
+                      
+                  
+                     
+                     </TextBlock.Text>
+                  </TextBlock>
+               </StackPanel>
+               <Button
+                  Name="GO"
+                  Width="140"
+                  Height="45"
+                  HorizontalAlignment="Right"
+                  Margin="0,0,28,29"
+                  VerticalAlignment="Bottom"
+                  Content="Go"
+                  FontSize="18"
+                  Padding="10"
+                  Visibility="Hidden"/>
+            </Grid>
+         </TabItem>
+         <TabItem
+            Name="ActiveTS"
+            Width="140"
+            Height="60"
+            Margin="357,658,-357,-658"
+            BorderThickness="0"
+            Header="DC01"
+            Style="{DynamicResource OOBETabStyle}"
+            Visibility="visible">
+            <Grid Margin="10,6,7,9">
+               <TextBlock
+                  x:Name="Version"
+                  Width="883"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  FontFamily="Segoe UI Light"
+                  FontSize="12"
+                  Foreground="gray"
+                  Text="v1.0"
+                  TextAlignment="right"/>
+               <TextBlock
+                  Name="Title"
+                  Width="416"
+                  HorizontalAlignment="Center"
+                  Margin="300,34,10,0"
+                  VerticalAlignment="Top"
+                  FontFamily="Segoe UI"
+                  FontSize="24"
+                  Foreground="Black"
+                  Text="Settings - DC01"
+                  TextAlignment="Left"
+                  TextWrapping="Wrap"/>
+               <Image
+                  x:Name="logo"
+                  Width="450"
+                  HorizontalAlignment="Left"
+                  Margin="70,217,0,224"
+                  VerticalAlignment="Center"
+                  Source="C:\Users\JM2K69\Pictures\srv.png"/>
+               <StackPanel
+                  Name="STk_Full"
+                  Margin="250 75 28 0 "
+                  Orientation="Horizontal"
+                  Visibility="visible">
+                  <StackPanel Orientation="Vertical">
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="Computer name">
+                        </Label>
+                        <TextBox
+                           Name="Computer_Name"
+                           Width="145"
+                           Height="20"
+                           Margin="15,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="Local Admin Password ">
+                        </Label>
+                        <PasswordBox
+                           Name="Local_Admin_PWD"
+                           Width="145"
+                           Height="20"
+                           Margin="15 0 0 0 "
+                           Controls:TextBoxHelper.ClearTextButton="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.HasText), Mode=OneWay}"
+                           Controls:TextBoxHelper.IsWaitingForData="True"
+                           Controls:TextBoxHelper.Watermark="Local Admin Password"
+                           Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_JD"
+                        Margin="0,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                        <Label Width="145" Margin="10,0,0,0" Content="Join Domain">
+                        </Label>
+                        <TextBox
+                           Name="Join_Domain"
+                           Width="145"
+                           Height="20"
+                           Margin="15 0 0 0 "/>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_DAD"
+                        Margin="0,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                        <Label Width="145" Margin="10,0,0,0" Content="Domain Admin Domain">
+                        </Label>
+                        <TextBox
+                           Name="DomainAdminDomain"
+                           Width="145"
+                           Height="20"
+                           Margin="15 0 0 0 "/>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_Domain_Wrk"
+                        Margin="0,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Visible">
+                        <Label Width="145" Margin="10,0,0,0" Content="WKG or Domain">
+                        </Label>
+                        <ComboBox
+                           Name="Choose_Domain_WKG"
+                           Width="145"
+                           Height="20"
+                           Margin="15,0,0,0"
+                           SelectedIndex="0"
+                           Text="Choose">
+                           <ComboBoxItem Name="Mode_Workgroup" Content="WorkGroup">
+                           </ComboBoxItem>
+                           <ComboBoxItem Name="Mode_Domain" Content="Domain">
+                           </ComboBoxItem>
+                        </ComboBox>
+                     </StackPanel>
+                     <StackPanel Name="Network_Block">
+                        <StackPanel Margin="10,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                           <Label Width="110" Margin="0,0,0,0" Content="IP Address ">
+                           </Label>
+                           <TextBox
+                              Name="IPAddress"
+                              Width="145"
+                              Height="20"
+                              Margin="50,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="10,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                           <Label Width="110" Margin="0,0,0,0" Content="Gateway">
+                           </Label>
+                           <TextBox
+                              Name="Gateway"
+                              Width="145"
+                              Height="20"
+                              Margin="50,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="10,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                           <Label Width="110" Margin="0,0,0,0" Content="Mask">
+                           </Label>
+                           <TextBox
+                              Name="SubnetMask"
+                              Width="145"
+                              Height="20"
+                              Margin="50,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="10,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                           <Label Width="110" Margin="0,0,0,0" Content="DNS Server(s)">
+                           </Label>
+                           <TextBox
+                              Name="DNS_Server"
+                              Width="145"
+                              Height="20"
+                              Margin="50,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                     </StackPanel>
+                     <StackPanel Name="Domain_Block">
+                        <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                           <Label Width="145" Margin="10,0,0,0" Content="User name">
+                           </Label>
+                           <TextBox
+                              Name="UserName"
+                              Width="145"
+                              Height="20"
+                              Margin="15,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                        <StackPanel
+                           Name="STK_MO"
+                           Margin="0,5,0,0"
+                           FlowDirection="LeftToRight"
+                           Orientation="Horizontal"
+                           Visibility="Collapsed">
+                           <Label Width="145" Margin="10,0,0,0" Content="Machine OU">
+                           </Label>
+                           <TextBox
+                              Name="Machine_OU"
+                              Width="145"
+                              Height="20"
+                              Margin="15,0,0,0">
+                           </TextBox>
+                        </StackPanel>
+                        <StackPanel
+                           Name="STk_DAP"
+                           Margin="0,5,0,0"
+                           FlowDirection="LeftToRight"
+                           Orientation="Horizontal"
+                           Visibility="Collapsed">
+                           <Label Width="145" Margin="10,0,0,0" Content="Domain Admin password">
+                           </Label>
+                           <PasswordBox
+                              Name="ADDS_Admin_PWD"
+                              Width="145"
+                              Height="20"
+                              Margin="15 0 0 0 "
+                              Controls:TextBoxHelper.ClearTextButton="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.HasText), Mode=OneWay}"
+                              Controls:TextBoxHelper.IsWaitingForData="True"
+                              Controls:TextBoxHelper.Watermark="Domain Admin Password"
+                              Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+                        </StackPanel>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_DDN"
+                        Margin="5,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Visible">
+                        <Label Width="160" Margin="4,0,0,0" Content="Domain DNS Name ">
+                        </Label>
+                        <TextBox
+                           Name="Domain_DNS_Name"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_DDNN"
+                        Margin="5,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Visible">
+                        <Label Width="160" Margin="4,0,0,0" Content="Domain NetBios Name">
+                        </Label>
+                        <TextBox
+                           Name="Domain_NetBios_Name"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0"
+                           CharacterCasing="Upper"
+                           MaxLength="15">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_ADP"
+                        Margin="5,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Visible">
+                        <Label Width="160" Margin="4,0,0,0" Content="Domain Recovery Password">
+                        </Label>
+                        <PasswordBox
+                           Name="ADDS_DRM_PWD"
+                           Width="145"
+                           Height="20"
+                           Margin="0 0 0 0 "
+                           Controls:TextBoxHelper.ClearTextButton="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.HasText), Mode=OneWay}"
+                           Controls:TextBoxHelper.IsWaitingForData="True"
+                           Controls:TextBoxHelper.Watermark="Domain Admin Password"
+                           Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+                     </StackPanel>
+                     <StackPanel
+                        Name="STk_SN"
+                        Margin="5,5,0,0"
+                        FlowDirection="LeftToRight"
+                        Orientation="Horizontal"
+                        Visibility="Visible">
+                        <Label Width="160" Margin="4,0,0,0" Content="Site Name">
+                        </Label>
+                        <TextBox
+                           Name="Site_Name"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                  </StackPanel>
+                  <StackPanel Name="STk_DS" Orientation="Vertical" Visibility="Visible">
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP Scope">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_Scope"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP Scope Name">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_Name"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0 5 0 0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP Routeur">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_Routeur"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0 5 0 0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP DNS">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_DNS"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP Start IP">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_StartIP"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP End IP">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_EndIP"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="130" Margin="4,0,0,0" Content="DHCP Domain Name">
+                        </Label>
+                        <TextBox
+                           Name="DHCP_Domain_name"
+                           Width="145"
+                           Height="20"
+                           Margin="0,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                  </StackPanel>
+               </StackPanel>
+               <StackPanel
+                  Name="STK_Last"
+                  Margin="250 75 28 0 "
+                  Orientation="Horizontal"
+                  Visibility="hidden">
+                  <StackPanel Orientation="Vertical">
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="_SMSTSORGNAME">
+                        </Label>
+                        <TextBox
+                           Name="_SMSTSORGNAME"
+                           Width="245"
+                           Height="20"
+                           Margin="15,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="OrgName">
+                        </Label>
+                        <TextBox
+                           Name="OrgName"
+                           Width="245"
+                           Height="20"
+                           Margin="15,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="TimeZoneName">
+                        </Label>
+                        <TextBox
+                           Name="TimeZoneName"
+                           Width="245"
+                           Height="20"
+                           Margin="15,0,0,0">
+                        </TextBox>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="Admin Password ">
+                        </Label>
+                        <PasswordBox
+                           Name="Admin_PWD"
+                           Width="245"
+                           Height="20"
+                           Margin="15 0 0 0 "
+                           Controls:TextBoxHelper.ClearTextButton="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.HasText), Mode=OneWay}"
+                           Controls:TextBoxHelper.IsWaitingForData="True"
+                           Controls:TextBoxHelper.Watermark="Local Admin Password"
+                           Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="KMS Public Key Windows Server STD">
+                        </Label>
+                        <ComboBox Margin="15 0 0 0">
+                           <ComboBoxItem>WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
+                           </ComboBoxItem>
+                           <ComboBoxItem>N69G4-B89J2-4G8F4-WWYCC-J464C
+                           </ComboBoxItem>
+                           <ComboBoxItem IsSelected="True">VDYBN-27WPP-V4HQT-9VMD4-VMK7H
+                           </ComboBoxItem>
+                        </ComboBox>
+                        <Label Width="155" Margin="5 0 0 0" Content="Windows Server 2022 STD">
+                        </Label>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipAdminPassword">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipAdminPassword"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipApplications">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipApplications"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipBitLocker">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipBitLocker"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipCapture">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipCapture"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipComputerName">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipComputerName"
+                           Margin="15 0  0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipDomainMembership">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipDomainMembership"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipFinalSummary">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipFinalSummary"
+                           Margin="15 0  0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipLocaleSelection">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipLocaleSelection"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipProductKey">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipProductKey"
+                           Margin="15 0  0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipSummary">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipSummary"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipTaskSequence">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipTaskSequence"
+                           Margin="15 0  0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipTimeZone">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipTimeZone"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                     <StackPanel Margin="0,5,0,0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipUserData">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipUserData"
+                           Margin="15 0  0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                        <Label Width="145" Margin="10,0,0,0" Content="SkipRoles">
+                        </Label>
+                        <Controls:ToggleSwitch
+                           Name="SkipRoles"
+                           Margin="15 0 0 0"
+                           FontWeight="Thin"
+                           OffContent="No"
+                           OnContent="Yes"/>
+                     </StackPanel>
+                  </StackPanel>
+               </StackPanel>
+               <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                  <Button
+                     Name="Next"
+                     Width="140"
+                     Height="45"
+                     HorizontalAlignment="Right"
+                     Margin="0,0,28,29"
+                     VerticalAlignment="Bottom"
+                     Content="Next"
+                     FontSize="18"
+                     Padding="10"/>
+                  <Button
+                     Name="Curent_Change"
+                     Width="140"
+                     Height="45"
+                     HorizontalAlignment="Right"
+                     Margin="0,0,28,29"
+                     VerticalAlignment="Bottom"
+                     Content="Change"
+                     FontSize="18"
+                     Padding="10"/>
+               </StackPanel>
+            </Grid>
+         </TabItem>
+      </TabControl>
+   </Grid>
+</Controls:MetroWindow>
