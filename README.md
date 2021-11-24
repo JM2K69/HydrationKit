@@ -13,6 +13,6 @@ I ♥ PS> powershell.exe .\HydrationKit.ps1
 2. With the Executable file
  You need to "Run as Administrator" in right click 😉
 
-# Preview
+# Preview 
 
 ![alt](https://github.com/JM2K69/HydrationKit/blob/main/img/HydrationKitFinal.gif)
