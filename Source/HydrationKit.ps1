@@ -166,7 +166,6 @@ $WPF_Folder.Add_Click({
 $WPF_Go.Add_Click({
 
   [int]$Script:NbTS = $Script:TS.count
-
   $WPF_ActiveTS.Visibility = "Visible"
   $WPF_ActiveTS.Header = "DC01"
     
@@ -204,8 +203,11 @@ $WPF_Go.Add_Click({
 
 })
 $WPF_Next.Add_Click({
-    
-  [int]$Script:NbTS = [int]$Script:NbTS - 1
+  if ($Script:NbTS -eq 9) {
+    [int]$Script:NbTS = [int]$Script:NbTS - 5
+      }else {
+        [int]$Script:NbTS = [int]$Script:NbTS - 1
+      }
   try {
     $WPF_Curent_Change.IsEnabled = $true
     }
@@ -327,7 +329,6 @@ $WPF_Next.Add_Click({
 })
 
 $WPF_Curent_Change.Add_Click({
-
   switch ([int]$Script:NbTS) {
     99{
         $Script:FileTS.Default._SMSTSORGNAME        = $WPF__SMSTSORGNAME.Text         
@@ -349,11 +350,14 @@ $WPF_Curent_Change.Add_Click({
         $Script:FileTS.Default.SkipUserData         = $WPF_SkipUserData.Text          
         $Script:FileTS.Default.SkipRoles            = $WPF_SkipRoles.Text             
 
-        if($WPF_KMS.SelectedIndex = 0){
+        if($WPF_KMS.SelectedIndex = 2){
 
           $Script:FileTS.Default.ProductKey = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
         }elseif ( $WPF_KMS.SelectedIndex = 1) {
           $Script:FileTS.Default.ProductKey = "N69G4-B89J2-4G8F4-WWYCC-J464C"
+        }
+        elseif ( $WPF_KMS.SelectedIndex = 2) {
+          $Script:FileTS.Default.Product = "TVRH6-WHNXV-R9WG3-9XRFY-MY832"
         }
         else {
           $Script:FileTS.Default.ProductKey = "VDYBN-27WPP-V4HQT-9VMD4-VMK7H"
@@ -361,9 +365,9 @@ $WPF_Curent_Change.Add_Click({
 
         Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings.ini.backup
         Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettingsM.ini
-        $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettingsM.ini
-        $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings.ini -Force
-        Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettingsM.ini -Force | Out-Null
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettingsM.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettingsM.ini -Force | Out-Null
 
         $WPF__SMSTSORGNAME.Text         =""        
         $WPF_OrgName.Text               =""
@@ -390,7 +394,7 @@ $WPF_Curent_Change.Add_Click({
         $WPF_LastC.Visibility = "Hidden"
         $WPF_STk_Final.Visibility = "Visible"
       }
-    5 {   
+    9 {   
       $Script:FileTS.Default.HydrationOSDComputerName         = $WPF_Computer_Name.Text             
       $Script:FileTS.Default.SafeModeAdminPassword            = $WPF_Local_Admin_PWD.Password     
       $Script:FileTS.Default.SafeModeAdminPassword            = $WPF_ADDS_Admin_PWD.Password       
@@ -413,9 +417,9 @@ $WPF_Curent_Change.Add_Click({
       
       Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01.ini.backup
       Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01M.ini
-      $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettings_DC01M.ini
-      $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings_DC01.ini -Force
-      Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettings_DC01M.ini -Force | Out-Null
+      $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01M.ini
+      $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01.ini -Force
+      Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DC01M.ini -Force | Out-Null
        
       $WPF_Curent_Change.IsEnabled = $false
     
@@ -456,9 +460,9 @@ $WPF_Curent_Change.Add_Click({
       
       Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01.ini.backup
       Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01M.ini
-      $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettings_CM01M.ini
-      $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings_CM01.ini -Force
-      Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettings_CM01M.ini -Force | Out-Null
+      $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01M.ini
+      $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01.ini -Force
+      Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_CM01M.ini -Force | Out-Null
     
       $WPF_Curent_Change.IsEnabled = $false
 
@@ -494,9 +498,9 @@ $WPF_Curent_Change.Add_Click({
         
         Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01.ini.backup
         Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01M.ini
-        $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettings_DP01M.ini
-        $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings_DP01.ini -Force
-        Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettings_DP01M.ini -Force | Out-Null
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01M.ini -Force | Out-Null
       
         $WPF_Curent_Change.IsEnabled = $false
   
@@ -530,9 +534,9 @@ $WPF_Curent_Change.Add_Click({
         
         Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01.ini.backup
         Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01M.ini
-        $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettings_FS01M.ini
-        $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings_FS01.ini -Force
-        Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettings_FS01M.ini -Force | Out-Null
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01M.ini -Force | Out-Null
       
         $WPF_Curent_Change.IsEnabled = $false
   
@@ -565,9 +569,9 @@ $WPF_Curent_Change.Add_Click({
         
         Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01.ini.backup
         Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01M.ini
-        $File = Get-Content C:\Test\ISO\Content\Deploy\Control\CustomSettings_MDT01M.ini
-        $File.Replace("[NO_SECTION]","") | Set-Content  C:\Test\ISO\Content\Deploy\Control\CustomSettings_MDT01.ini -Force
-        Remove-Item C:\Test\ISO\Content\Deploy\Control\CustomSettings_MDT01M.ini -Force | Out-Null
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_MDT01M.ini -Force | Out-Null
       
         $WPF_Curent_Change.IsEnabled = $false
   
@@ -586,7 +590,8 @@ $WPF_Curent_Change.Add_Click({
         $WPF_Next.Content = "Last"
         $WPF_Next.IsEnabled = $false
         $WPF_LastC.Visibility = "Visible"
-        $WPF_Curent_Change.IsEnabled = $true
+        $WPF_Curent_Change.IsEnabled = $false
+        $WPF_Curent_Change.Visibility = "Hidden"
       }
    
     Default {}
@@ -603,6 +608,7 @@ $WPF_KMS.Add_SelectionChanged({
       'WC2BQ' { $WPF_KMSKey.Content = 'Windows Server 2016 STD'  }
       'N69G4' { $WPF_KMSKey.Content = 'Windows Server 2019 STD'}
       'VDYBN' {$WPF_KMSKey.Content = 'Windows Server 2022 STD'}
+      'TVRH6' {$WPF_KMSKey.Content = 'Windows Server 2025 STD'}
       Default {}
     }
 })
@@ -639,6 +645,8 @@ if ($null -eq $Script:TS) {
 })
 
 $WPF_LastC.Add_Click({
+  $WPF_Curent_Change.IsEnabled = $true
+  $WPF_Curent_Change.Visibility = "Visible"
 
   [Int]$Script:NbTS = 99
   $WPF_ActiveTS.Header = "CustomSettings"
