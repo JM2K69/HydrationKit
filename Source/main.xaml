@@ -989,6 +989,8 @@
                         <Label Width="145" Margin="10,0,0,0" Content="KMS Public Key Windows Server STD">
                         </Label>
                         <ComboBox Name="KMS" Margin="15 0 0 0">
+                           <ListBoxItem Name="TVRH6" >TVRH6-WHNXV-R9WG3-9XRFY-MY832
+                           </ListBoxItem >
                            <ListBoxItem Name="WC2BQ" >WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
                            </ListBoxItem >
                            <ListBoxItem Name="N69G4" >N69G4-B89J2-4G8F4-WWYCC-J464C
