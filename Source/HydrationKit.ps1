@@ -112,8 +112,6 @@ function New-MahappsMessage {
 }
 
 $WPF_Exit.Add_Click({
- # New-MahappsMessage -title "toto" -Message test
-
     exit
 })
 $WPF_Folder.Add_Click({
@@ -203,11 +201,7 @@ $WPF_Go.Add_Click({
 
 })
 $WPF_Next.Add_Click({
-  if ($Script:NbTS -eq 9) {
-    [int]$Script:NbTS = [int]$Script:NbTS - 5
-      }else {
-        [int]$Script:NbTS = [int]$Script:NbTS - 1
-      }
+    [int]$Script:NbTS = [int]$Script:NbTS - 1
   try {
     $WPF_Curent_Change.IsEnabled = $true
     }
@@ -216,7 +210,7 @@ $WPF_Next.Add_Click({
   }
   switch ([int]$Script:NbTS) {
 
-    4 {
+    8 {
       $WPF_STk_ADP.Visibility = "Collapsed"
       $WPF_STk_DAD.Visibility = "Visible"
       $WPF_STk_DAP.Visibility = "Collapsed"
@@ -250,7 +244,7 @@ $WPF_Next.Add_Click({
       $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
       $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
       }
-    3 {
+    7 {
       $WPF_ActiveTS.Header = "DP01"
       $WPF_title.Text = "Settings - DP01"
       if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_DP01.ini ){
@@ -274,7 +268,7 @@ $WPF_Next.Add_Click({
       $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
 
       }
-    2 {
+    6 {
         $WPF_ActiveTS.Header = "FS01"
         $WPF_title.Text = "Settings - FS01"
         if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_FS01.ini ){
@@ -297,6 +291,99 @@ $WPF_Next.Add_Click({
         $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
         $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
   
+      }
+    5 {
+        $WPF_ActiveTS.Header = "PC0001"
+        $WPF_title.Text = "Settings - PC0001"
+        if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001.ini ){
+          $Script:FileTS = Parse-IniFile $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001.ini
+          $Script:GolbalFile = "CustomSettings_PC0001.ini"
+        }
+        
+        $WPF_Tabcontrol.selecteditem = $WPF_Tabcontrol.Items[1]
+        
+        $WPF_Computer_Name.Text             = $Script:FileTS.Default.HydrationOSDComputerName 
+        $WPF_Local_Admin_PWD.Password     	= $Script:FileTS.Default.DomainAdminPassword
+        $WPF_DNS_Server.Text                = $Script:FileTS.Default.OSDAdapter0DNSServerList
+        $WPF_Domain_DNS_Name.Text           = $Script:FileTS.Default.NewDomainDNSName
+        $WPF_Domain_NetBios_Name.Text       = $Script:FileTS.Default.DomainNetBiosName
+        $WPF_Gateway.Text                   = $Script:FileTS.Default.OSDAdapter0Gateways
+        $WPF_IPAddress.Text                 = $Script:FileTS.Default.OSDAdapter0IPAddressList
+        $WPF_SubnetMask.Text 	              = $Script:FileTS.Default.OSDAdapter0SubnetMask
+        $WPF_UserName.Text                  = $Script:FileTS.Default.DomainAdmin
+        $WPF_Join_Domain.Text               = $Script:FileTS.Default.JoinDomain
+        $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
+        $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
+  
+      }
+    4 {
+        $WPF_ActiveTS.Header = "PC0002"
+        $WPF_title.Text = "Settings - PC0002"
+        if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002.ini ){
+          $Script:FileTS = Parse-IniFile $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002.ini
+          $Script:GolbalFile = "CustomSettings_PC0002.ini"
+        }
+        
+        $WPF_Tabcontrol.selecteditem = $WPF_Tabcontrol.Items[1]
+        
+        $WPF_Computer_Name.Text             = $Script:FileTS.Default.HydrationOSDComputerName 
+        $WPF_Local_Admin_PWD.Password     	= $Script:FileTS.Default.DomainAdminPassword
+        $WPF_DNS_Server.Text                = $Script:FileTS.Default.OSDAdapter0DNSServerList
+        $WPF_Domain_DNS_Name.Text           = $Script:FileTS.Default.NewDomainDNSName
+        $WPF_Domain_NetBios_Name.Text       = $Script:FileTS.Default.DomainNetBiosName
+        $WPF_Gateway.Text                   = $Script:FileTS.Default.OSDAdapter0Gateways
+        $WPF_IPAddress.Text                 = $Script:FileTS.Default.OSDAdapter0IPAddressList
+        $WPF_SubnetMask.Text 	              = $Script:FileTS.Default.OSDAdapter0SubnetMask
+        $WPF_UserName.Text                  = $Script:FileTS.Default.DomainAdmin
+        $WPF_Join_Domain.Text               = $Script:FileTS.Default.JoinDomain
+        $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
+        $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
+ 
+      }
+    3 {
+        $WPF_ActiveTS.Header = "PC0003"
+        $WPF_title.Text = "Settings - PC0003"
+        if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003.ini ){
+          $Script:FileTS = Parse-IniFile $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003.ini
+          $Script:GolbalFile = "CustomSettings_PC0003.ini"
+        }
+        
+        $WPF_Tabcontrol.selecteditem = $WPF_Tabcontrol.Items[1]
+        
+        $WPF_Computer_Name.Text             = $Script:FileTS.Default.HydrationOSDComputerName 
+        $WPF_Local_Admin_PWD.Password     	= $Script:FileTS.Default.DomainAdminPassword
+        $WPF_DNS_Server.Text                = $Script:FileTS.Default.OSDAdapter0DNSServerList
+        $WPF_Domain_DNS_Name.Text           = $Script:FileTS.Default.NewDomainDNSName
+        $WPF_Domain_NetBios_Name.Text       = $Script:FileTS.Default.DomainNetBiosName
+        $WPF_Gateway.Text                   = $Script:FileTS.Default.OSDAdapter0Gateways
+        $WPF_IPAddress.Text                 = $Script:FileTS.Default.OSDAdapter0IPAddressList
+        $WPF_SubnetMask.Text 	              = $Script:FileTS.Default.OSDAdapter0SubnetMask
+        $WPF_UserName.Text                  = $Script:FileTS.Default.DomainAdmin
+        $WPF_Join_Domain.Text               = $Script:FileTS.Default.JoinDomain
+        $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
+        $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
+      }
+    2 {
+        $WPF_ActiveTS.Header = "PC0004"
+        $WPF_title.Text = "Settings - PC0004"
+        if (Test-Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004.ini ){
+          $Script:FileTS = Parse-IniFile $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004.ini
+          $Script:GolbalFile = "CustomSettings_PC0004.ini"
+        }
+        $WPF_Tabcontrol.selecteditem = $WPF_Tabcontrol.Items[1]
+        
+        $WPF_Computer_Name.Text             = $Script:FileTS.Default.HydrationOSDComputerName 
+        $WPF_Local_Admin_PWD.Password     	= $Script:FileTS.Default.DomainAdminPassword
+        $WPF_DNS_Server.Text                = $Script:FileTS.Default.OSDAdapter0DNSServerList
+        $WPF_Domain_DNS_Name.Text           = $Script:FileTS.Default.NewDomainDNSName
+        $WPF_Domain_NetBios_Name.Text       = $Script:FileTS.Default.DomainNetBiosName
+        $WPF_Gateway.Text                   = $Script:FileTS.Default.OSDAdapter0Gateways
+        $WPF_IPAddress.Text                 = $Script:FileTS.Default.OSDAdapter0IPAddressList
+        $WPF_SubnetMask.Text 	              = $Script:FileTS.Default.OSDAdapter0SubnetMask
+        $WPF_UserName.Text                  = $Script:FileTS.Default.DomainAdmin
+        $WPF_Join_Domain.Text               = $Script:FileTS.Default.JoinDomain
+        $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
+        $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
       }
     1 {
         $WPF_ActiveTS.Header = "MDT01"
@@ -321,7 +408,11 @@ $WPF_Next.Add_Click({
         $WPF_Machine_OU.Text                = $Script:FileTS.Default.MachineObjectOU
         $WPF_DomainAdminDomain.Text         = $Script:FileTS.Default.DomainAdminDomain
         $WPF_Next.Content = "Last"
+        $WPF_LastC.Visibility = "Visible"
+        $WPF_LastC.Content = "CustomSettings"
         $WPF_Next.IsEnabled = $false
+        $WPF_Next.Visibility = "Hidden"
+        [int]$Script:NbTS = 99
       }
     Default { }
   }
@@ -443,7 +534,7 @@ $WPF_Curent_Change.Add_Click({
       $WPF_SubnetMask.Text 	            = ""  
       $WPF_UserName.Text                = ""  
       }
-    4 {
+    8 {
 
       $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
       $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
@@ -481,7 +572,7 @@ $WPF_Curent_Change.Add_Click({
 
 
       }
-    3 {
+    7 {
 
         $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
         $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
@@ -517,7 +608,7 @@ $WPF_Curent_Change.Add_Click({
         $WPF_Machine_OU.Text               ="" 
         $WPF_DomainAdminDomain.Text        =""
       }
-    2 {
+    6 {
 
         $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
         $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
@@ -553,7 +644,147 @@ $WPF_Curent_Change.Add_Click({
         $WPF_Machine_OU.Text               ="" 
         $WPF_DomainAdminDomain.Text        =""
       }
-    1 {
+    5 {
+        $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
+        $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
+        $Script:FileTS.Default.OSDAdapter0DNSServerList =$WPF_DNS_Server.Text 
+        $Script:FileTS.Default.NewDomainDNSName =$WPF_Domain_DNS_Name.Text 
+        $Script:FileTS.Default.DomainNetBiosName = $WPF_Domain_NetBios_Name.Text 
+        $Script:FileTS.Default.OSDAdapter0Gateways = $WPF_Gateway.Text 
+        $Script:FileTS.Default.OSDAdapter0IPAddressList = $WPF_IPAddress.Text 
+        $Script:FileTS.Default.OSDAdapter0SubnetMask = $WPF_SubnetMask.Text
+        $Script:FileTS.Default.DomainAdmin = $WPF_UserName.Text 
+        $Script:FileTS.Default.JoinDomain = $WPF_Join_Domain.Text 
+        $Script:FileTS.Default.MachineObjectOU = $WPF_Machine_OU.Text 
+        $Script:FileTS.Default.DomainAdminDomain = $WPF_DomainAdminDomain.Text 
+        
+        Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001.ini.backup
+        Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001M.ini
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0001M.ini -Force | Out-Null
+      
+        $WPF_Curent_Change.IsEnabled = $false
+  
+        $WPF_Computer_Name.Text            =""
+        $WPF_Local_Admin_PWD.Password      =""	
+        $WPF_DNS_Server.Text               ="" 
+        $WPF_Domain_DNS_Name.Text          =""
+        $WPF_Domain_NetBios_Name.Text      =""
+        $WPF_Gateway.Text                  =""
+        $WPF_IPAddress.Text                =""  
+        $WPF_SubnetMask.Text 	             =""
+        $WPF_UserName.Text                 =""
+        $WPF_Join_Domain.Text              =""
+        $WPF_Machine_OU.Text               =""
+        $WPF_DomainAdminDomain.Text        =""
+      }
+    4 {
+        $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
+        $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
+        $Script:FileTS.Default.OSDAdapter0DNSServerList =$WPF_DNS_Server.Text 
+        $Script:FileTS.Default.NewDomainDNSName =$WPF_Domain_DNS_Name.Text 
+        $Script:FileTS.Default.DomainNetBiosName = $WPF_Domain_NetBios_Name.Text 
+        $Script:FileTS.Default.OSDAdapter0Gateways = $WPF_Gateway.Text 
+        $Script:FileTS.Default.OSDAdapter0IPAddressList = $WPF_IPAddress.Text 
+        $Script:FileTS.Default.OSDAdapter0SubnetMask = $WPF_SubnetMask.Text
+        $Script:FileTS.Default.DomainAdmin = $WPF_UserName.Text 
+        $Script:FileTS.Default.JoinDomain = $WPF_Join_Domain.Text 
+        $Script:FileTS.Default.MachineObjectOU = $WPF_Machine_OU.Text 
+        $Script:FileTS.Default.DomainAdminDomain = $WPF_DomainAdminDomain.Text 
+        
+        Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002.ini.backup
+        Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002M.ini
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0002M.ini -Force | Out-Null
+      
+        $WPF_Curent_Change.IsEnabled = $false
+  
+        $WPF_Computer_Name.Text            =""
+        $WPF_Local_Admin_PWD.Password      =""	
+        $WPF_DNS_Server.Text               ="" 
+        $WPF_Domain_DNS_Name.Text          =""
+        $WPF_Domain_NetBios_Name.Text      =""
+        $WPF_Gateway.Text                  ="" 
+        $WPF_IPAddress.Text                =""  
+        $WPF_SubnetMask.Text 	             ="" 
+        $WPF_UserName.Text                 ="" 
+        $WPF_Join_Domain.Text              ="" 
+        $WPF_Machine_OU.Text               ="" 
+        $WPF_DomainAdminDomain.Text        =""
+      }
+    3 {
+        $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
+        $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
+        $Script:FileTS.Default.OSDAdapter0DNSServerList =$WPF_DNS_Server.Text 
+        $Script:FileTS.Default.NewDomainDNSName =$WPF_Domain_DNS_Name.Text 
+        $Script:FileTS.Default.DomainNetBiosName = $WPF_Domain_NetBios_Name.Text 
+        $Script:FileTS.Default.OSDAdapter0Gateways = $WPF_Gateway.Text 
+        $Script:FileTS.Default.OSDAdapter0IPAddressList = $WPF_IPAddress.Text 
+        $Script:FileTS.Default.OSDAdapter0SubnetMask = $WPF_SubnetMask.Text
+        $Script:FileTS.Default.DomainAdmin = $WPF_UserName.Text 
+        $Script:FileTS.Default.JoinDomain = $WPF_Join_Domain.Text 
+        $Script:FileTS.Default.MachineObjectOU = $WPF_Machine_OU.Text 
+        $Script:FileTS.Default.DomainAdminDomain = $WPF_DomainAdminDomain.Text 
+        
+        Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003.ini.backup
+        Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003M.ini
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0003M.ini -Force | Out-Null
+      
+        $WPF_Curent_Change.IsEnabled = $false
+  
+        $WPF_Computer_Name.Text            =""
+        $WPF_Local_Admin_PWD.Password      =""	
+        $WPF_DNS_Server.Text               ="" 
+        $WPF_Domain_DNS_Name.Text          =""
+        $WPF_Domain_NetBios_Name.Text      =""
+        $WPF_Gateway.Text                  =""
+        $WPF_IPAddress.Text                =""
+        $WPF_SubnetMask.Text 	             =""
+        $WPF_UserName.Text                 =""
+        $WPF_Join_Domain.Text              =""
+        $WPF_Machine_OU.Text               =""
+        $WPF_DomainAdminDomain.Text        =""
+      }
+    2 {
+        $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
+        $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
+        $Script:FileTS.Default.OSDAdapter0DNSServerList =$WPF_DNS_Server.Text 
+        $Script:FileTS.Default.NewDomainDNSName =$WPF_Domain_DNS_Name.Text 
+        $Script:FileTS.Default.DomainNetBiosName = $WPF_Domain_NetBios_Name.Text 
+        $Script:FileTS.Default.OSDAdapter0Gateways = $WPF_Gateway.Text 
+        $Script:FileTS.Default.OSDAdapter0IPAddressList = $WPF_IPAddress.Text 
+        $Script:FileTS.Default.OSDAdapter0SubnetMask = $WPF_SubnetMask.Text
+        $Script:FileTS.Default.DomainAdmin = $WPF_UserName.Text 
+        $Script:FileTS.Default.JoinDomain = $WPF_Join_Domain.Text 
+        $Script:FileTS.Default.MachineObjectOU = $WPF_Machine_OU.Text 
+        $Script:FileTS.Default.DomainAdminDomain = $WPF_DomainAdminDomain.Text 
+        
+        Copy-Item -Path $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004.ini -Destination $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004.ini.backup
+        Out-IniFile $Script:FileTS  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004M.ini
+        $File = Get-Content $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004M.ini
+        $File.Replace("[NO_SECTION]","") | Set-Content  $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004.ini -Force
+        Remove-Item $Script:Folder\ISO\Content\Deploy\Control\CustomSettings_PC0004M.ini -Force | Out-Null
+      
+        $WPF_Curent_Change.IsEnabled = $false
+  
+        $WPF_Computer_Name.Text            =""
+        $WPF_Local_Admin_PWD.Password      =""	
+        $WPF_DNS_Server.Text               ="" 
+        $WPF_Domain_DNS_Name.Text          =""
+        $WPF_Domain_NetBios_Name.Text      =""
+        $WPF_Gateway.Text                  =""
+        $WPF_IPAddress.Text                =""
+        $WPF_SubnetMask.Text 	             =""
+        $WPF_UserName.Text                 =""
+        $WPF_Join_Domain.Text              =""
+        $WPF_Machine_OU.Text               =""
+        $WPF_DomainAdminDomain.Text        =""
+      }
+     1 {
         $Script:FileTS.Default.HydrationOSDComputerName  = $WPF_Computer_Name.Text             
         $Script:FileTS.Default.DomainAdminPassword = $WPF_Local_Admin_PWD.Password   
         $Script:FileTS.Default.OSDAdapter0DNSServerList =$WPF_DNS_Server.Text 
@@ -681,15 +912,12 @@ $WPF_LastC.Add_Click({
   if ($Script:FileTS.Default.ProductKey -eq "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"  ) {
 
     $WPF_KMS.SelectedIndex = 0
-    
   }elseif ($Script:FileTS.Default.ProductKey -eq "N69G4-B89J2-4G8F4-WWYCC-J464C") {
     $WPF_KMS.SelectedIndex = 1
   }
   else{
     $WPF_KMS.SelectedIndex = 2
   }
-
-
 })
 
 $Form.ShowDialog() | Out-Null
